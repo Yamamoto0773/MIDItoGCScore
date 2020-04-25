@@ -153,10 +153,13 @@ int main() {
     
     Status ret;
 
+
+    fs::path midiPath;
+
     cout << "MIDIファイルをドラック&ドロップし，Enterキーを押してください\n";
     while (true) {
         cout << ">";
-        std::string filePath;
+        std::string filePath;        
         std::getline(cin, filePath);
 
         // erase ' or "
@@ -189,6 +192,7 @@ int main() {
             continue;        
         }
 
+        midiPath = filePath;
         cout << "読み込み完了\n\n";
         break;
     }
@@ -317,8 +321,8 @@ int main() {
     // write score
 
     cout << "\n譜面データを作成します\n";
-
-    const fs::path scoreFilePath = "score.json";
+    
+    const fs::path scoreFilePath = midiPath.parent_path() / "notes.json";
 
     std::ofstream scoreFile;
     scoreFile.open(scoreFilePath);

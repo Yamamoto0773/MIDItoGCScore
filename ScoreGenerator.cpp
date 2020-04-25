@@ -139,7 +139,7 @@ void ScoreGenerator::generate_header(std::ostream& stream) {
 
     int numofElements = 0;
 
-    stream << "\t" << R"("tempo": [)" << "\n";
+    stream << "\t" << R"("time_signature": [)" << "\n";
     for (const auto& event : beatEvents) {
         if (numofElements > 0) {
             stream << ",\n";
@@ -157,7 +157,7 @@ void ScoreGenerator::generate_header(std::ostream& stream) {
     stream << ",\n";
 
     numofElements = 0;
-    stream << "\t" << R"("time_signature": [)" << "\n";
+    stream << "\t" << R"("tempo": [)" << "\n";
     for (const auto& event : tempoEvents) {
         if (numofElements > 0) {
             stream << ",\n";
