@@ -334,7 +334,7 @@ int main() {
     scoreFile << ",\n";
 
     GeneratingConfig config;
-    config.holdMinLength = math::Fraction(1, 4);
+    config.holdMinLength = holdMinLen;
     for (int i = 0; i < allocateTypes.size(); i++) {
         config.keyAssign[intervalNumbers[i]] = allocateTypes[i];
     }
