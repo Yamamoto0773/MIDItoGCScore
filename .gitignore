@@ -261,14 +261,6 @@ __pycache__/
 *.pyc
 
 
-# add
-*.sln
-main.cpp
-*.mid
-*.vcxproj
-*.vcxproj.filters
-*.txt
-*.out
 
 # vscode
 launch.json
