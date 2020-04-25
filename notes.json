@@ -1,11 +1,11 @@
 {
-	"time_signature": [
+	"tempo": [
 		{
 			"at": "1:1/1",
 			"value": "4/4"
 		}
 	],
-	"tempo": [
+	"time_signature": [
 		{
 			"at": "1:1/1",
 			"value": 120
