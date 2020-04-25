@@ -1,0 +1,90 @@
+{
+	"tempo": [
+		{
+			"at": "1:1/1",
+			"value": "4/4"
+		}
+	],
+	"time_signature": [
+		{
+			"at": "1:1/1",
+			"value": 120
+		}
+	],
+	"notes": [
+		{
+			"type": "hit",
+			"at": "1:1/1"
+		},
+		{
+			"type": "hit",
+			"at": "1:2/4"
+		},
+		{
+			"type": "hit",
+			"at": "1:2/2"
+		},
+		{
+			"type": "hit",
+			"at": "1:4/4"
+		},
+		{
+			"type": "hold",
+			"at": "2:1/1",
+			"end_at": "2:2/2"
+		},
+		{
+			"type": "hit",
+			"at": "2:4/4"
+		},
+		{
+			"type": "critical",
+			"at": "3:1/1"
+		},
+		{
+			"type": "critical",
+			"at": "3:2/4"
+		},
+		{
+			"type": "dualhold",
+			"at": "3:2/2",
+			"end_at": "3:8/8"
+		},
+		{
+			"type": "slide",
+			"at": "4:1/1",
+			"direction": "left"
+		},
+		{
+			"type": "slide",
+			"at": "4:2/8",
+			"direction": "left"
+		},
+		{
+			"type": "slidehold",
+			"at": "4:2/4",
+			"end_at": "4:4/4",
+			"direction": "left"
+		},
+		{
+			"type": "dualslide",
+			"at": "4:8/8",
+			"direction": "left",
+			"direction2": "right"
+		},
+		{
+			"type": "beat",
+			"at": "5:1/1",
+			"end_at": "5:2/16"
+		},
+		{
+			"type": "scratch",
+			"at": "5:2/8",
+			"end_at": "5:4/16"
+		},
+		{
+			"type": "adlib",
+			"at": "5:2/4"
+		}
+	]
+}

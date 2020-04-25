@@ -120,12 +120,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Fraction.cpp" />
     <ClCompile Include="MIDIReader.cpp" />
-    <ClCompile Include="MIDItoScore.cpp" />
+    <ClCompile Include="ScoreGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fraction.hpp" />
     <ClInclude Include="MIDIReader.hpp" />
-    <ClInclude Include="MIDItoScore.hpp" />
+    <ClInclude Include="ScoreGenerator.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
