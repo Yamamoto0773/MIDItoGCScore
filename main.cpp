@@ -339,10 +339,7 @@ int main() {
         config.keyAssign[intervalNumbers[i]] = allocateTypes[i];
     }
 
-    // write note position
-    for (char targetTrackName = '1'; targetTrackName < '2'; targetTrackName++) {        
-        generator.generate(scoreFile, trackNum, config);
-    }
+    generator.generate(scoreFile, trackNum, config);
 
     scoreFile << "\n}\n";
     scoreFile.close();
