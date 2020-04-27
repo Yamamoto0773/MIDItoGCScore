@@ -14,39 +14,39 @@ SMF(Standard MIDI File)のうち，フォーマット0と1に対応していま�
 #include "ScoreGenerator.hpp"
 
 int main() {
-	using namespace midireader;
-	MIDIReader midi;
+    using namespace midireader;
+    MIDIReader midi;
 
-	// Read Midi file
-	midi.openAndRead("sample.mid");
+    // Read Midi file
+    midi.openAndRead("sample.mid");
 
-	// Open score file
-	std::ofstream scoreFile;
-	scoreFile.open("notes.json");
+    // Open score file
+    std::ofstream scoreFile;
+    scoreFile.open("notes.json");
 
-	// Set midi data to ScoreGenerator
-	ScoreGenerator generator(midi);
+    // Set midi data to ScoreGenerator
+    ScoreGenerator generator(midi);
 
-	// Write Header
+    // Write Header
     scoreFile << "{\n";
     generator.generate_header(scoreFile);
     scoreFile << ",\n";
 
-	// Set Configrations
+    // Set Configrations
     GeneratingConfig config;
-	// convert quater-note to long target
+    // convert quater-note to long target
     config.holdMinLength = math::Fraction(1, 4); 
-	// convert the notes which its note-number is 48 to Hit target
-	config.keyAssign[48] = NoteType::Hit;
+    // convert the notes which its note-number is 48 to Hit target
+    config.keyAssign[48] = NoteType::Hit;
 
-	// Write body
-	generator.generate(scoreFile, 1, config);
+    // Write body
+    generator.generate(scoreFile, 1, config);
 
     scoreFile << "\n}\n";
     scoreFile.close();
     midi.close();
 
-	return 0;
+    return 0;
 }
 
 ```
@@ -60,37 +60,37 @@ int main() {
 ### 書き出し例
 ```json
 {
-	"tempo": [
-		{
-			"at": "1:1/1",
-			"value": "4/4"
-		}
-	],
-	"time_signature": [
-		{
-			"at": "1:1/1",
-			"value": 120
-		}
-	],
-	"notes": [
-		{
-			"type": "hit",
-			"at": "1:1/1"
-		},
-		{
-			"type": "hit",
-			"at": "1:2/4"
-		},
-		{
-			"type": "hit",
-			"at": "1:4/4"
-		},
-		{
-			"type": "hold",
-			"at": "2:1/1",
-			"end_at": "2:2/2"
-		}
-	]
+    "tempo": [
+        {
+            "at": "1:1/1",
+            "value": "4/4"
+        }
+    ],
+    "time_signature": [
+        {
+            "at": "1:1/1",
+            "value": 120
+        }
+    ],
+    "notes": [
+        {
+            "type": "hit",
+            "at": "1:1/1"
+        },
+        {
+            "type": "hit",
+            "at": "1:2/4"
+        },
+        {
+            "type": "hit",
+            "at": "1:4/4"
+        },
+        {
+            "type": "hold",
+            "at": "2:1/1",
+            "end_at": "2:2/2"
+        }
+    ]
 }
 
 ```
@@ -115,13 +115,13 @@ MIT LicenseについてはLICENSEを参照して下さい。
 ざっくり説明すると以下のようになっています。
 
 <dl>
-	<dt>条件</dt>
-	<dd>著作権とライセンスの表示</dd>
-	<dt>許可</dt>
-	<dd>商用利用</dd>
-	<dd>修正</dd>
-	<dd>配布</dd>
-	<dd>個人利用</dd>
-	<dt>禁止</dt>
-	<dd>責任免除</dd>
+    <dt>条件</dt>
+    <dd>著作権とライセンスの表示</dd>
+    <dt>許可</dt>
+    <dd>商用利用</dd>
+    <dd>修正</dd>
+    <dd>配布</dd>
+    <dd>個人利用</dd>
+    <dt>禁止</dt>
+    <dd>責任免除</dd>
 </dl>
