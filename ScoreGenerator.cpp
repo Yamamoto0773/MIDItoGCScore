@@ -39,7 +39,8 @@ std::string toNoteTypeString(NoteType type) {
     case NoteType::Adlib:
         return "adlib";
     default:
-        throw std::exception("unknown note type");
+        //throw std::exception("unknown note type");
+        return "";
     }
 }
 
@@ -75,7 +76,7 @@ void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const Ge
             current = next+1;
             continue;
         }
-  
+
         if (type == NoteType::Hit || type == NoteType::Critical || type == NoteType::Slide) {
             math::Fraction noteLength = (next->bar + next->posInBar) - (current->bar + current->posInBar);
             if (noteLength >= config.holdMinLength) {
