@@ -59,13 +59,6 @@ void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const Ge
     while (current != midiEvents.cend()) {
         if (current->type == MidiEvent::NoteOff) continue;
 
-        NoteType type;
-        try {
-            type = config.keyAssign.at(current->interval);
-        } catch (const std::exception&) {
-            continue;
-        }
-
         // find note off event
         std::vector<NoteEvent>::const_iterator next;
         for (auto it = current + 1; it != midiEvents.cend(); it++) {
@@ -73,6 +66,14 @@ void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const Ge
                 next = it;
                 break;
             }
+        }
+
+        NoteType type;
+        try {
+            type = config.keyAssign.at(current->interval);
+        } catch (const std::exception&) {
+            current = next+1;
+            continue;
         }
   
         if (type == NoteType::Hit || type == NoteType::Critical || type == NoteType::Slide) {
