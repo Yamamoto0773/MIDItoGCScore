@@ -322,7 +322,7 @@ namespace midireader {
 
         // ---------------------------
         // calculation position in bar
-        ans.posInBar = { static_cast<int>(midiTime - time), resolution };
+        ans.posInBar = { static_cast<int>(midiTime - time), static_cast<int>(4 * header.resolutionUnit) };
         ans.posInBar.reduce();
         if (ans.posInBar == 0) {
             ans.posInBar.set(0);

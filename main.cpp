@@ -320,7 +320,7 @@ int main() {
     // ---------------------------------------------------
     // write score
 
-    cout << "\n譜面データを作成します\n";
+    cout << "\n譜面データを作成します\n\n";
     
     const fs::path scoreFilePath = midiPath.parent_path() / "notes.json";
 
@@ -339,13 +339,20 @@ int main() {
         config.keyAssign[intervalNumbers[i]] = allocateTypes[i];
     }
 
-    generator.generate(scoreFile, trackNum, config);
-
+    bool isSuccess = false;
+    try {
+        generator.generate(scoreFile, trackNum, config);
+        isSuccess = true;
+    } catch (std::exception &e) {
+        cout << e.what();
+    }
+    
     scoreFile << "\n}\n";
     scoreFile.close();
     midi.close();
 
-    cout << "\n譜面データを作成しました\n";
+    if (isSuccess)
+        cout << "譜面データを作成しました\n";
 
     stop();
 

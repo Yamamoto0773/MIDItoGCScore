@@ -50,6 +50,7 @@ ScoreGenerator::ScoreGenerator(const midireader::MIDIReader& reader)
 
 void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const GeneratingConfig& config) {
     using namespace midireader;
+    using namespace std::string_literals;
 
     stream << "\t" << R"("notes": [)" << "\n";
 
@@ -63,9 +64,21 @@ void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const Ge
         // find note off event
         std::vector<NoteEvent>::const_iterator next;
         for (auto it = current + 1; it != midiEvents.cend(); it++) {
-            if (it->interval == current->interval && it->type == MidiEvent::NoteOff) {
+            if (it->interval != current->interval) continue;
+
+            if (it->type == MidiEvent::NoteOff) {
                 next = it;
                 break;
+            } else {
+                std::stringstream errorMsg;
+                errorMsg
+                    << "エラー\n"
+                    << "ノーツの重複が検出されました\n"
+                    << "該当ノーツ詳細\n"
+                    << "位置: 小節 " << it->bar << ":" << (it->posInBar + math::Fraction(1, it->posInBar.get().d)).get_str() << "\n"
+                    << "音程(MIDI number): " << it->interval << "\n";
+
+                throw std::exception(errorMsg.str().c_str());
             }
         }
 
