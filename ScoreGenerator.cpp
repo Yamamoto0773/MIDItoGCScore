@@ -39,8 +39,7 @@ std::string toNoteTypeString(NoteType type) {
     case NoteType::Adlib:
         return "adlib";
     default:
-        //throw std::exception("unknown note type");
-        return "";
+        throw std::runtime_error("unknown note type");
     }
 }
 
@@ -78,7 +77,7 @@ void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const Ge
                     << "位置: 小節 " << it->bar << ":" << (it->posInBar + math::Fraction(1, it->posInBar.get().d)).get_str() << "\n"
                     << "音程(MIDI number): " << it->interval << "\n";
 
-                throw std::exception(errorMsg.str().c_str());
+                throw std::runtime_error(errorMsg.str().c_str());
             }
         }
 
