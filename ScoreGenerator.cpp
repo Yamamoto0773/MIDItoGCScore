@@ -51,7 +51,8 @@ void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const Ge
     using namespace midireader;
     using namespace std::string_literals;
 
-    stream << "\t" << R"("notes": [)" << "\n";
+    stream << "\t" << R"("target": {)" << "\n";
+    stream << "\t\t" << R"("notes": [)" << "\n";
 
     int numofElements = 0;
 
@@ -111,39 +112,40 @@ void ScoreGenerator::generate(std::ostream& stream, size_t trackNumber, const Ge
         }
 
         std::stringstream str;
-        str << "\t\t" << R"({)" << "\n";
-        str << "\t\t\t" << R"("type": )" << "\"" << toNoteTypeString(type) << "\"" << ",\n"
-               << "\t\t\t" << R"("at": )" << "\"" << current->bar << ":" << at_frac.get_str() << "\"";
+        str << "\t\t\t" << R"({)" << "\n";
+        str << "\t\t\t\t" << R"("type": )" << "\"" << toNoteTypeString(type) << "\"" << ",\n"
+               << "\t\t\t\t" << R"("at": )" << "\"" << current->bar << ":" << at_frac.get_str() << "\"";
 
         if (type != NoteType::Hit && type != NoteType::Critical && type != NoteType::Slide && type != NoteType::Adlib && type != NoteType::DualSlide) {
             str << ",\n";
-            str << "\t\t\t" << R"("end_at": )" << "\"" << next->bar << ":" << end_at_frac.get_str() << "\"";
+            str << "\t\t\t\t" << R"("end_at": )" << "\"" << next->bar << ":" << end_at_frac.get_str() << "\"";
         }
 
 
         if (type == NoteType::Slide || type == NoteType::SlideHold) {
             stream << str.str()
                    << ",\n"
-                   << "\t\t\t" << R"("direction": )" << "\"" << "left" << "\"";
+                   << "\t\t\t\t" << R"("direction": )" << "\"" << "left" << "\"";
         } else if (type == NoteType::DualSlide) {
             stream << str.str()
                    << ",\n"
-                   << "\t\t\t" << R"("direction": )" << "\"" << "left" << "\""
+                   << "\t\t\t\t" << R"("direction": )" << "\"" << "left" << "\""
                    << ",\n"
-                   << "\t\t\t" << R"("direction2": )" << "\"" << "right" << "\"";
+                   << "\t\t\t\t" << R"("direction2": )" << "\"" << "right" << "\"";
         } else {
             stream << str.str();
         }
 
         stream << "\n";
-        stream << "\t\t" << R"(})";
+        stream << "\t\t\t" << R"(})";
 
         current = next + 1;
 
         numofElements++;
     }
 
-    stream << "\n" << "\t]";
+    stream << "\n" << "\t\t]";
+    stream << "\n" << "\t}";
 }
 
 
@@ -153,25 +155,26 @@ void ScoreGenerator::generate_header(std::ostream& stream) {
 
     int numofElements = 0;
 
-    stream << "\t" << R"("time_signature": [)" << "\n";
+    stream << "\t" << R"("header": {)" << "\n";
+    stream << "\t\t" << R"("time_signature": [)" << "\n";
     for (const auto& event : beatEvents) {
         if (numofElements > 0) {
             stream << ",\n";
         }
 
-        stream << "\t\t" << R"({)" << "\n"
-               << "\t\t\t" << R"("at": )" << "\"" << event.bar << ":" << "1/1" << "\"" << ",\n"
-               << "\t\t\t" << R"("value": )" << "\"" << event.beat.get_str() << "\"" << "\n"
-               << "\t\t" << R"(})";
+        stream << "\t\t\t" << R"({)" << "\n"
+               << "\t\t\t\t" << R"("at": )" << "\"" << event.bar << ":" << "1/1" << "\"" << ",\n"
+               << "\t\t\t\t" << R"("value": )" << "\"" << event.beat.get_str() << "\"" << "\n"
+               << "\t\t\t" << R"(})";
 
         numofElements++;
     }
-    stream << "\n" << "\t]";
+    stream << "\n" << "\t\t]";
 
     stream << ",\n";
 
     numofElements = 0;
-    stream << "\t" << R"("tempo": [)" << "\n";
+    stream << "\t\t" << R"("tempo": [)" << "\n";
     for (const auto& event : tempoEvents) {
         if (numofElements > 0) {
             stream << ",\n";
@@ -180,12 +183,13 @@ void ScoreGenerator::generate_header(std::ostream& stream) {
         // 小節内の位置を1originにする
         math::Fraction pos = event.posInBar + math::Fraction(1, event.posInBar.get().d);
 
-        stream << "\t\t" << R"({)" << "\n"
-               << "\t\t\t" << R"("at": )" << "\"" << event.bar << ":" << pos.get_str() << "\"" << ",\n"
-               << "\t\t\t" << R"("value": )" << event.tempo  << "\n"
-               << "\t\t" << R"(})";
+        stream << "\t\t\t" << R"({)" << "\n"
+               << "\t\t\t\t" << R"("at": )" << "\"" << event.bar << ":" << pos.get_str() << "\"" << ",\n"
+               << "\t\t\t\t" << R"("value": )" << event.tempo  << "\n"
+               << "\t\t\t" << R"(})";
 
         numofElements++;
     }
-    stream << "\n" << "\t]";
+    stream << "\n" << "\t\t]";
+    stream << "\n" << "\t}";
 }
